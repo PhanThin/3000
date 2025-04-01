@@ -162,8 +162,8 @@
     function updateButton_4() {
         if (!getState(btn4)) {
             if (getState(btn3)) return;
-            if (getState(btn2)) {
-                setState(btn1, false);
+            if (getState(btn1)) {
+                setState(btn2, false);
             }
         }
     }
