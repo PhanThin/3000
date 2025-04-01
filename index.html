@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Logic Switches</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .switch-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .switch-item {
+      display: flex;
+      align-items: center;
+      margin: 10px;
+    }
+    .switch-label {
+      margin-right: 10px;
+      font-size: 16px;
+      width: 200px;
+      text-align: right;
+    }
+    /* CSS cho switch (toggle) */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #4CAF50;
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  </style>
+</head>
+<body>
+  <h1>Love diu 3000</h1>
+  <div class="switch-container">
+    <div class="switch-item">
+      <span class="switch-label">Yêu em ☆*: .｡. o(≧▽≦)o .｡.:*☆</span>
+      <label class="switch">
+        <input type="checkbox" id="btn1">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="switch-item">
+      <span class="switch-label">Chấp nhận em ngoại tềnh (￣﹃￣)</span>
+      <label class="switch">
+        <input type="checkbox" id="btn2">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="switch-item">
+      <span class="switch-label">Chỉ có trong mơ (¬‿¬)</span>
+      <label class="switch">
+        <input type="checkbox" id="btn3">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="switch-item">
+      <span class="switch-label">Yêu em gái (●'◡'●)</span>
+      <label class="switch">
+        <input type="checkbox" id="btn4" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <script>
+    const btn1 = document.getElementById('btn1');
+    const btn2 = document.getElementById('btn2');
+    const btn3 = document.getElementById('btn3');
+    const btn4 = document.getElementById('btn4');
+
+    // Hàm kiểm tra trạng thái của switch (true: ON, false: OFF)
+    function getState(btn) {
+      return btn.checked;
+    }
+
+    // Hàm đặt trạng thái cho switch
+    function setState(btn, state) {
+      btn.checked = state;
+    }
+
+    // Các hàm xử lý logic riêng cho mỗi switch
+
+    function updateButton_4() {
+        if (!getState(btn4)) {
+            if (getState(btn3)) return;
+            if (getState(btn2)) {
+                setState(btn1, false);
+            }
+        }
+    }
+
+    function updateButton_3() {
+        if (!getState(btn3)) {
+            if (getState(btn4)) return;
+            if (getState(btn1)) {
+                setState(btn2, false);
+            }
+        }
+    }
+
+    function updateButton_2() {
+        if (getState(btn2)) {
+            if (getState(btn3) || getState(btn4)) return;
+            setState(btn1, false);
+        }
+    }
+
+    function updateButton_1() {
+      if (getState(btn1)) {
+        if (getState(btn3) || getState(btn4)) return;
+        setState(btn2, false);
+      }
+    }
+
+    // Gán sự kiện cho switch thay vì button, dùng sự kiện "change"
+    btn1.addEventListener('change', function() {
+      updateButton_1();
+    });
+
+    btn2.addEventListener('change', function() {
+      updateButton_2();
+    });
+
+    btn3.addEventListener('change', function() {
+      updateButton_3();
+    });
+
+    btn4.addEventListener('change', function() {
+      updateButton_4();
+    });
+  </script>
+</body>
+</html>
